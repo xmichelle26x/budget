@@ -13,8 +13,15 @@ const ControlBudget = ({ budget }) => {
         <div className='contenedor-presupuesto contenedor sombra dos-columnas'>
             Gráfica
             <div className='contenido-presupuesto'>
+                <button className='reset-app '>Reset app</button>
                 <p>
                     <span>Budget: </span>{budgetFormatting(budget)}
+                </p>
+                <p>
+                    <span>Available: </span>{budgetFormatting(0)}
+                </p>
+                <p>
+                    <span>Spent: </span>{budgetFormatting(0)}
                 </p>
 
             </div>
