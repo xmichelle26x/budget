@@ -9,6 +9,7 @@ const ControlBudget = ({ budget }) => {
         }).format(quantity);
     }
 
+
     return (
         <div className='contenedor-presupuesto contenedor sombra dos-columnas'>
             Gráfica
