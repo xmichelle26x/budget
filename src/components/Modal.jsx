@@ -2,14 +2,15 @@ import { useState } from 'react'
 import CloseBttn from '../img/cerrar.svg'
 import Message from './Message'
 
-const Modal = ({ setModal, animateModal, setAnimateModal }) => {
-    
-    const [ name, setName ] = useState('')
-    const [ amount, setAmount ] = useState('')
-    const [ category, setCategory ] = useState('') 
+const Modal = ({ setModal, animateModal, setAnimateModal, saveExpense }) => {
 
-    const [ message, setMessage ] = useState('')
-    
+    const [message, setMessage] = useState('')
+
+    const [name, setName] = useState('')
+    const [amount, setAmount] = useState('')
+    const [category, setCategory] = useState('')
+
+
     const hideModal = () => {
         setAnimateModal(false)
 
@@ -17,14 +18,18 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
             setModal(false)
         }, 500)
     }
- 
-    const handleSubmit = e => {
-        e.preventDefaul(); 
 
-        if([name, amount, category].includes('')){
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        if ([name, amount, category].includes('')) {
             setMessage('Please fill all the required fields')
+            setTimeout(() => {
+                setMessage('')
+            }, 3000)
             return;
         }
+        saveExpense({name, amount, category}) 
     }
 
 
@@ -39,7 +44,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
             <form
                 onSubmit={handleSubmit}
                 className={`formulario ${animateModal ? 'animar' : 'cerrar'}`}
-                >
+            >
                 <legend>New Expense</legend>
 
                 {message && <Message typee='error'>{message}</Message>}
@@ -51,7 +56,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
                         type="text"
                         placeholder='Add expense'
                         value={name}
-                        onChange={e=> setName(e.target.value)}
+                        onChange={e => setName(e.target.value)}
                     />
                 </div>
                 <div className='campo'>
@@ -61,23 +66,24 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
                         type="number"
                         placeholder='Add expense amount: i.e. : 300'
                         value={amount}
-                        onChange={e=> setAmount(Number(e.target.value))}
+                        onChange={e => setAmount(Number(e.target.value))}
                     />
                 </div>
                 <div className='campo'>
                     <label htmlFor="categoria">Category</label>
-                    <select 
+                    <select
                         id="categoria"
                         value={category}
-                        onChange={e=> setCategory(e.target.value)}
-                        >
+                        onChange={e => setCategory(e.target.value)}
+                    >
 
                         <option value="">-- Select --</option>
                         <option value="savings">Savings</option>
                         <option value="food">Food</option>
                         <option value="housing">Housing</option>
                         <option value="expenses">Various Expenses</option>
-                        <option value="leisure">Leisure Expenses</option>
+                        <option value="leisure">Leisure</option>
+                        <option value="health">Health</option>
                         <option value="subscriptions">Subscriptions</option>
                     </select>
                 </div>
@@ -85,7 +91,7 @@ const Modal = ({ setModal, animateModal, setAnimateModal }) => {
                     <input
                         type="submit"
                         value='Add Expense' />
-                        
+
                 </div>
             </form>
 

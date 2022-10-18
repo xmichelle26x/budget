@@ -12,7 +12,11 @@ const NewBudget = ({ budget,
 
         if (!(budget) || (budget) < 0) {
             setMessage('Not a valid budget')
-            return
+
+            setTimeout(() => {
+                setMessage('')
+            }, 3000)
+            return;
         }
         setMessage('')
         setIsValidBudget(true)
