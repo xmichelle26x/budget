@@ -1,6 +1,17 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
 
-const ControlBudget = ({ budget }) => {
+const ControlBudget = ({ expenses, budget }) => {
+
+    useEffect(() => {
+        const totalSpent = expenses.reduce((total, expense) => expense.amount + total, 0);
+        const totalAvailable = budget - totalSpent;
+        setAvailable(totalAvailable)
+        setSpent(totalSpent)
+    }, [expenses])
+
+
+    const [available, setAvailable] = useState(0)
+    const [spent, setSpent] = useState(0)
 
     const budgetFormatting = (quantity) => {
         return new Intl.NumberFormat('en-US', {

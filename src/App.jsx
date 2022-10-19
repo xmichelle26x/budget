@@ -5,6 +5,7 @@ import Modal from './components/Modal';
 import IconNewExpense from './img/nuevo-gasto.svg'
 
 function App() {
+  const [expenses, setExpenses] = useState([]);
   const [budget, setBudget] = useState(0);
 
   const [isValidBudget, setIsValidBudget] = useState(false);
@@ -12,7 +13,6 @@ function App() {
   const [modal, setModal] = useState(false);
   const [animateModal, setAnimateModal] = useState(false);
 
-  const [expenses, setExpenses] = useState([]);
 
   const handleNewExpense = () => {
     setModal(true)
@@ -43,8 +43,9 @@ function App() {
 
 
   return (
-    <div>
+    <div className={modal ? 'fijar':''}>
       <Header
+        expenses={expenses}
         budget={budget}
         setBudget={setBudget}
         isValidBudget={isValidBudget}
